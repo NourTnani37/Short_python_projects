@@ -124,13 +124,33 @@ def draw (window, tiles):
     
     pygame.display.update()         #as soon as update is called, it makes the updates with the orders in which they are called 
 
+def get_random_pos(tiles):
+    row = None
+    col = None
+
+    # keep randomly generating positions until we find empty tile
+    while True:
+        row = random.randrange(0, ROWS)
+        col = random.randrange(0, COLS)
+
+        if f"{row}{col}" not in tiles:
+            break
+    return row, col
+
+def generate_tiles():
+    tiles = {}
+    for _ in range(2):
+        row, col = get_random_pos(tiles)
+        tiles[f"{row}{col}"] = Tile(2, row, col)
+
+    return tiles
 
 # Create main loop that runs the game
 
 def main(window):
     clock = pygame.time.Clock()
     run = True
-    tiles = {"00": Tile(4,0,0), "20": Tile(128,2,0)}
+    tiles = generate_tiles()
 
     while run:
         clock.tick(FPS)
