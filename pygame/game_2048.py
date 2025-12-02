@@ -26,6 +26,28 @@ MOVE_VEL = 20
 WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("2048")
 
+def draw_grid(window):
+    # draw a horizontal line for each row
+    for row in range(1,ROWS):
+        y = row * RECT_HEIGHT
+        pygame.draw.line(window, OUTLINE_COLOR, (0,y), (WIDTH,y), OUTLINE_THICKNESS)
+
+    # draw a vertical line for each column 
+    for col in range(1,COLS):
+        x = col * RECT_WIDTH
+        pygame.draw.line(window, OUTLINE_COLOR, (x,0), (x,HEIGHT), OUTLINE_THICKNESS)
+        
+    # draw outside window square
+    pygame.draw.rect(window, OUTLINE_COLOR, (0,0, WIDTH, HEIGHT), OUTLINE_THICKNESS) #rectangle coordinates starts at top left corner
+
+
+def draw (window):
+    window.fill(BACKGROUND_COLOR)
+    draw_grid(window)
+    
+    
+    pygame.display.update()         #as soon as update is called, it makes the updates with the orders in which they are called 
+
 # Create main loop that runs the game
 
 def main(window):
@@ -39,6 +61,9 @@ def main(window):
             if event.type == pygame.QUIT :
                 run = False
                 break
+
+        
+        draw(window)
 
     pygame.quit()
 
